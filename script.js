@@ -60,7 +60,7 @@ const quickTestBtn = document.getElementById('quickTestBtn');
 
 function triggerMidnightCelebration() {
   previewMode = true;
-  previewText.innerText = "Back to Countdown";
+  previewText.innerText = "Countdown";
   showScreen('screen-celebrate');
   startFireworks();
   startMusic();
@@ -71,7 +71,7 @@ previewBtn.addEventListener('click', () => {
     triggerMidnightCelebration();
   } else {
     previewMode = false;
-    previewText.innerText = "Preview Midnight";
+    previewText.innerText = "Preview";
     showScreen('screen-countdown');
   }
 });
@@ -154,7 +154,7 @@ function initBalloonGame() {
     const b = document.createElement('div');
     b.className = 'balloon';
     b.style.background = colors[index % colors.length];
-    b.style.animationDelay = (index * 0.25) + 's';
+    b.style.animationDelay = (index * 0.2) + 's';
 
     const shine = document.createElement('div');
     shine.className = 'balloon-shine';
@@ -191,11 +191,69 @@ function revealLetter(idx, char) {
   }
 }
 
-document.getElementById('goToLetterBtn').addEventListener('click', () => {
+// Navigate to Screen 5: Photo Gallery
+document.getElementById('goToGalleryBtn').addEventListener('click', () => {
+  showScreen('screen-gallery');
+});
+
+// Photo Gallery Upload & Lightbox
+const photoUploadInput = document.getElementById('photoUploadInput');
+const photoGrid = document.getElementById('photoGrid');
+const lightbox = document.getElementById('imageLightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCaption = document.getElementById('lightboxCaption');
+const lightboxClose = document.getElementById('lightboxClose');
+
+function attachCardClick(card) {
+  card.addEventListener('click', () => {
+    const img = card.querySelector('img');
+    const cap = card.querySelector('.polaroid-caption');
+    lightboxImg.src = img.src;
+    lightboxCaption.innerText = cap ? cap.innerText : '';
+    lightbox.classList.remove('hidden');
+  });
+}
+
+document.querySelectorAll('.polaroid-card').forEach(attachCardClick);
+
+if (photoUploadInput) {
+  photoUploadInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const card = document.createElement('div');
+        card.className = 'polaroid-card';
+        card.innerHTML = `
+          <div class="polaroid-img-box">
+            <img src="${event.target.result}" alt="Our Memory" class="memory-img">
+          </div>
+          <p class="polaroid-caption">${file.name.replace(/\.[^/.]+$/, "")} 💜</p>
+        `;
+        attachCardClick(card);
+        photoGrid.prepend(card);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+lightboxClose.addEventListener('click', () => {
+  lightbox.classList.add('hidden');
+});
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.classList.add('hidden');
+  }
+});
+
+// Gallery -> Screen 6: Love Letter
+document.getElementById('goToLetterFromGalleryBtn').addEventListener('click', () => {
   showScreen('screen-letter');
 });
 
-// Screen 5: Love Letter
+// Screen 6: Love Letter
 const waxSeal = document.getElementById('waxSeal');
 const envelope = document.getElementById('envelope');
 const letterPaper = document.getElementById('letterPaper');
@@ -301,7 +359,7 @@ function animateFireworks() {
     const p = particles[i];
     p.x += p.vx;
     p.y += p.vy;
-    p.vy += 0.05; // gravity
+    p.vy += 0.05;
     p.alpha -= p.decay;
     if (p.alpha <= 0) {
       particles.splice(i, 1);
@@ -327,15 +385,19 @@ function burstConfetti() {
   }
 }
 
-// Web Audio API Ambient Romantic Synthesizer
+// Dual Audio: Supports custom MP3 file (music.mp3 / user uploaded audio) + Soft Synth Melody Fallback
+const bgAudio = document.getElementById('bgAudio');
+const musicUploadInput = document.getElementById('musicUploadInput');
+let useSyntheticAudio = false;
+
 const melodyNotes = [
   261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 440.00, 392.00,
   329.63, 349.23, 392.00, 440.00, 523.25, 587.33, 523.25, 392.00
 ];
 let noteIndex = 0;
-let musicInterval = null;
+let synthInterval = null;
 
-function initAudio() {
+function initAudioContext() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
@@ -343,7 +405,7 @@ function initAudio() {
 
 function playTone(freq, duration = 0.5) {
   try {
-    initAudio();
+    initAudioContext();
     if (audioCtx.state === 'suspended') audioCtx.resume();
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -363,14 +425,28 @@ function playPopSound() {
 }
 
 function startMusic() {
-  initAudio();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
   audioPlaying = true;
   document.getElementById('musicToggleBtn').classList.add('playing');
   document.querySelector('.music-text').innerText = "Music: On 🎵";
 
-  if (!musicInterval) {
-    musicInterval = setInterval(() => {
+  // Try playing the mp3 audio first
+  if (bgAudio && bgAudio.src && !useSyntheticAudio) {
+    bgAudio.play().then(() => {
+      // playing audio file successfully
+    }).catch(err => {
+      // If no mp3 or blocked, fallback to ambient synth
+      playSynthMelody();
+    });
+  } else {
+    playSynthMelody();
+  }
+}
+
+function playSynthMelody() {
+  initAudioContext();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (!synthInterval) {
+    synthInterval = setInterval(() => {
       if (audioPlaying) {
         playTone(melodyNotes[noteIndex], 0.8);
         noteIndex = (noteIndex + 1) % melodyNotes.length;
@@ -383,9 +459,12 @@ function stopMusic() {
   audioPlaying = false;
   document.getElementById('musicToggleBtn').classList.remove('playing');
   document.querySelector('.music-text').innerText = "Music: Off";
-  if (musicInterval) {
-    clearInterval(musicInterval);
-    musicInterval = null;
+  if (bgAudio) {
+    bgAudio.pause();
+  }
+  if (synthInterval) {
+    clearInterval(synthInterval);
+    synthInterval = null;
   }
 }
 
@@ -397,7 +476,22 @@ document.getElementById('musicToggleBtn').addEventListener('click', () => {
   }
 });
 
-// Unlock audio on first user touch
+// Custom MP3 Upload Button handler
+if (musicUploadInput) {
+  musicUploadInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      bgAudio.src = url;
+      useSyntheticAudio = false;
+      stopMusic();
+      startMusic();
+      alert(`Playing custom song: ${file.name} 🎶`);
+    }
+  });
+}
+
+// Auto unlock audio on first touch
 document.addEventListener('click', () => {
-  initAudio();
+  initAudioContext();
 }, { once: true });

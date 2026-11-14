@@ -33,7 +33,6 @@ body {
   touch-action: manipulation;
 }
 
-/* Background Canvases */
 #starsCanvas, #fireworksCanvas {
   position: fixed;
   top: 0;
@@ -55,38 +54,44 @@ body {
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
   z-index: 50;
   pointer-events: auto;
 }
 
-.pill-btn {
+.pill-btn, .upload-photo-btn {
   background: rgba(30, 20, 60, 0.75);
   border: 1px solid rgba(216, 180, 254, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: var(--lavender);
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-.pill-btn:hover, .pill-btn:active {
+.pill-btn:hover, .pill-btn:active, .upload-photo-btn:hover {
   transform: scale(1.05);
   border-color: var(--baby-blue);
   color: #fff;
   box-shadow: 0 0 15px rgba(125, 211, 252, 0.4);
 }
 
-/* Main Container */
+.pill-btn.playing {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.25);
+  color: #fff;
+}
+
 #appContainer {
   position: relative;
   z-index: 10;
@@ -97,10 +102,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 70px 16px 30px;
+  padding: 70px 14px 30px;
 }
 
-/* Screens */
 .screen {
   display: none;
   width: 100%;
@@ -114,14 +118,13 @@ body {
   display: flex;
 }
 
-/* Glassmorphism Card */
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 28px;
-  padding: 28px 20px;
+  padding: 26px 18px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(216, 180, 254, 0.08);
   width: 100%;
   position: relative;
@@ -141,7 +144,7 @@ body {
   position: relative;
   width: 110px;
   height: 110px;
-  margin: 0 auto 20px;
+  margin: 0 auto 15px;
 }
 
 .moon {
@@ -178,17 +181,16 @@ body {
   to { transform: translateY(-8px); }
 }
 
-/* Badges & Titles */
 .badge {
   display: inline-block;
-  padding: 6px 14px;
+  padding: 5px 14px;
   background: rgba(157, 78, 221, 0.25);
   border: 1px solid rgba(157, 78, 221, 0.4);
   border-radius: 20px;
   color: var(--lavender);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 1px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .sparkle-badge {
@@ -200,41 +202,41 @@ body {
 
 .romantic-subtitle {
   font-family: var(--font-romantic);
-  font-size: 26px;
+  font-size: 24px;
   color: var(--lavender);
   font-weight: 600;
   line-height: 1.3;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   text-shadow: 0 0 12px rgba(216, 180, 254, 0.4);
 }
 
 .target-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
   color: #e2e8f0;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .destination-date {
   font-size: 13px;
   color: var(--text-dim);
   letter-spacing: 1px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 /* Countdown Grid */
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
   margin: 10px 0;
 }
 
 .timer-box {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 12px 6px;
+  border-radius: 14px;
+  padding: 10px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -254,7 +256,7 @@ body {
 }
 
 .timer-box .num {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: #fff;
   font-variant-numeric: tabular-nums;
@@ -262,29 +264,28 @@ body {
 }
 
 .timer-box .label {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--lavender);
   margin-top: 4px;
 }
 
-/* Buttons */
 .magic-btn {
   background: linear-gradient(135deg, #7928ca 0%, #a855f7 50%, #38bdf8 100%);
   border: none;
   outline: none;
   color: white;
-  padding: 14px 30px;
+  padding: 13px 26px;
   border-radius: 50px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(121, 40, 202, 0.5), 0 0 20px rgba(56, 189, 248, 0.3);
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 320px;
-  margin: 18px auto 6px;
+  max-width: 300px;
+  margin: 16px auto 6px;
   display: block;
 }
 
@@ -331,11 +332,11 @@ body {
 
 /* Screen 2 Styles */
 .celebration-box {
-  padding: 40px 24px;
+  padding: 35px 20px;
 }
 
 .hero-title {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 1.25;
   margin: 12px 0 10px;
@@ -346,27 +347,27 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 18px;
+  font-size: 17px;
   color: var(--lavender);
   font-style: italic;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 }
 
 .age-badge {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 25px;
+  padding: 14px;
+  margin-bottom: 22px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   color: #cbd5e1;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .age-number {
-  font-size: 46px;
+  font-size: 42px;
   color: #facc15;
   text-shadow: 0 0 25px rgba(250, 204, 21, 0.6);
   font-family: var(--font-serif);
@@ -375,20 +376,20 @@ body {
 /* Screen 3: Cake */
 .section-title {
   font-family: var(--font-serif);
-  font-size: 26px;
+  font-size: 24px;
   color: #fff;
   margin-bottom: 6px;
   text-shadow: 0 0 15px rgba(216, 180, 254, 0.4);
 }
 
 .sub-text {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--text-dim);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .cake-stage {
-  height: 220px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -399,15 +400,15 @@ body {
 
 .cake {
   position: relative;
-  width: 170px;
+  width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .cake-plate {
-  width: 220px;
-  height: 14px;
+  width: 210px;
+  height: 12px;
   background: linear-gradient(180deg, #e2e8f0, #94a3b8);
   border-radius: 10px;
   margin-top: -4px;
@@ -422,15 +423,15 @@ body {
 }
 
 .tier-top {
-  width: 120px;
-  height: 55px;
+  width: 110px;
+  height: 50px;
   background: linear-gradient(180deg, #c084fc, #9333ea);
   z-index: 3;
 }
 
 .tier-bottom {
-  width: 170px;
-  height: 70px;
+  width: 160px;
+  height: 65px;
   background: linear-gradient(180deg, #7e22ce, #581c87);
   z-index: 1;
 }
@@ -445,12 +446,12 @@ body {
 }
 
 .top-frosting {
-  width: 124px;
+  width: 114px;
   margin-bottom: -6px;
 }
 
 .middle-frosting {
-  width: 174px;
+  width: 164px;
   margin-top: -6px;
   margin-bottom: -6px;
   z-index: 2;
@@ -459,15 +460,14 @@ body {
 .berries {
   display: flex;
   justify-content: space-around;
-  padding: 6px 10px 0;
+  padding: 6px 8px 0;
 }
 
 .berries span {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   background: #f43f5e;
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .decorations {
@@ -475,17 +475,16 @@ body {
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-/* Candle */
 .candle {
-  width: 16px;
-  height: 48px;
+  width: 15px;
+  height: 44px;
   background: repeating-linear-gradient(45deg, #fff, #fff 5px, #f472b6 5px, #f472b6 10px);
   border-radius: 4px;
   position: absolute;
-  top: -46px;
+  top: -42px;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -495,7 +494,7 @@ body {
 .number-tag {
   position: absolute;
   bottom: -6px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   background: #38bdf8;
   color: #0f172a;
@@ -505,11 +504,11 @@ body {
 
 .flame {
   width: 14px;
-  height: 24px;
+  height: 22px;
   background: radial-gradient(ellipse at 50% 80%, #fff 0%, #fef08a 30%, #f97316 70%, transparent 100%);
   border-radius: 50% 50% 35% 35%;
   position: absolute;
-  top: -24px;
+  top: -22px;
   box-shadow: 0 0 20px #f97316, 0 0 35px #fef08a;
   animation: flicker 0.15s infinite alternate;
   transform-origin: center bottom;
@@ -524,7 +523,7 @@ body {
 
 .smoke {
   position: absolute;
-  top: -30px;
+  top: -26px;
   width: 6px;
   height: 6px;
   background: rgba(255, 255, 255, 0.7);
@@ -548,9 +547,8 @@ body {
   100% { opacity: 0; transform: translateY(-40px) scale(5); }
 }
 
-/* Wish Input Box */
 .wish-section {
-  margin-top: 16px;
+  margin-top: 14px;
   animation: fadeIn 0.6s ease;
 }
 
@@ -560,7 +558,7 @@ body {
 
 .wish-prompt {
   font-family: var(--font-romantic);
-  font-size: 22px;
+  font-size: 21px;
   color: var(--lavender);
   margin-bottom: 12px;
 }
@@ -569,25 +567,19 @@ body {
   width: 100%;
   background: rgba(0, 0, 0, 0.35);
   border: 1.5px solid rgba(216, 180, 254, 0.4);
-  border-radius: 16px;
-  padding: 12px 14px;
+  border-radius: 14px;
+  padding: 12px;
   color: #fff;
   font-family: var(--font-main);
-  font-size: 15px;
+  font-size: 14.5px;
   outline: none;
   resize: none;
-  transition: border-color 0.2s;
-}
-
-.input-group textarea:focus {
-  border-color: var(--baby-blue);
-  box-shadow: 0 0 15px rgba(125, 211, 252, 0.25);
 }
 
 .note {
-  font-size: 12px;
+  font-size: 11px;
   color: #94a3b8;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 /* Screen 4: Balloon Game */
@@ -596,25 +588,24 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  min-height: 48px;
-  margin-bottom: 20px;
+  gap: 5px;
+  min-height: 44px;
+  margin-bottom: 16px;
   background: rgba(0, 0, 0, 0.25);
-  padding: 8px 12px;
-  border-radius: 16px;
+  padding: 6px 10px;
+  border-radius: 14px;
 }
 
 .letter-slot {
-  width: 24px;
-  height: 32px;
+  width: 22px;
+  height: 30px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--lavender);
   border-bottom: 2px solid rgba(216, 180, 254, 0.4);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .letter-slot.revealed {
@@ -625,7 +616,7 @@ body {
 }
 
 .letter-slot.space {
-  width: 10px;
+  width: 8px;
   border: none;
 }
 
@@ -634,14 +625,14 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 10px;
-  min-height: 260px;
+  gap: 10px;
+  padding: 8px;
+  min-height: 240px;
 }
 
 .balloon {
-  width: 60px;
-  height: 75px;
+  width: 56px;
+  height: 70px;
   border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
   position: relative;
   cursor: pointer;
@@ -650,7 +641,6 @@ body {
   justify-content: center;
   box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.3);
   animation: floatBalloon 3s ease-in-out infinite alternate;
-  transition: transform 0.15s ease;
 }
 
 .balloon:active {
@@ -662,26 +652,25 @@ body {
   position: absolute;
   bottom: -8px;
   width: 2px;
-  height: 18px;
+  height: 16px;
   background: rgba(255, 255, 255, 0.5);
 }
 
 .balloon-shine {
   position: absolute;
-  top: 12px;
-  left: 10px;
-  width: 12px;
-  height: 20px;
+  top: 10px;
+  left: 9px;
+  width: 10px;
+  height: 18px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   transform: rotate(-30deg);
 }
 
 .balloon-number {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes floatBalloon {
@@ -700,7 +689,7 @@ body {
 }
 
 .success-banner {
-  margin-top: 20px;
+  margin-top: 16px;
   animation: fadeIn 0.8s ease;
 }
 
@@ -710,19 +699,134 @@ body {
 
 .congrats-text {
   font-family: var(--font-romantic);
-  font-size: 34px;
+  font-size: 30px;
   color: #fff;
   text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
 }
 
 .sub-love-text {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--baby-blue);
-  margin-top: 6px;
-  margin-bottom: 14px;
+  margin-top: 4px;
+  margin-bottom: 12px;
 }
 
-/* Screen 5: Love Letter */
+/* Screen 5: Photo Gallery / Memories */
+.gallery-card {
+  max-width: 460px;
+}
+
+.gallery-controls {
+  margin-bottom: 16px;
+}
+
+.upload-photo-btn {
+  background: rgba(168, 85, 247, 0.25);
+  border: 1px dashed rgba(216, 180, 254, 0.6);
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.polaroid-card {
+  background: #ffffff;
+  padding: 8px 8px 14px 8px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transform: rotate(-1.5deg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.polaroid-card:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.polaroid-card:hover, .polaroid-card:active {
+  transform: scale(1.05) rotate(0deg);
+  box-shadow: 0 12px 28px rgba(168, 85, 247, 0.4);
+}
+
+.polaroid-img-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #111;
+}
+
+.memory-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption {
+  font-family: var(--font-romantic);
+  font-size: 14px;
+  color: #2e1065;
+  font-weight: 700;
+  margin-top: 8px;
+  line-height: 1.2;
+}
+
+/* Lightbox Modal */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 6, 24, 0.94);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 38px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#lightboxImg {
+  max-width: 90%;
+  max-height: 75vh;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(168, 85, 247, 0.6);
+}
+
+#lightboxCaption {
+  font-family: var(--font-romantic);
+  font-size: 22px;
+  color: var(--lavender);
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Screen 6: Love Letter */
 .letter-screen-box {
   max-width: 440px;
   padding: 24px 16px;
@@ -739,7 +843,7 @@ body {
 .envelope {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 190px;
   background: linear-gradient(135deg, #3b1d6e, #240c4a);
   border-radius: 16px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.6);
@@ -757,7 +861,7 @@ body {
   height: 0;
   border-left: 180px solid transparent;
   border-right: 180px solid transparent;
-  border-top: 110px solid #4c268f;
+  border-top: 105px solid #4c268f;
   transform-origin: top center;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 5;
@@ -771,31 +875,27 @@ body {
   height: 100%;
   border-left: 190px solid #2a0e55;
   border-right: 190px solid #240c4a;
-  border-bottom: 120px solid #321264;
-  border-top: 80px solid transparent;
+  border-bottom: 115px solid #321264;
+  border-top: 75px solid transparent;
   z-index: 4;
 }
 
 .wax-seal {
   position: absolute;
-  top: 90px;
+  top: 85px;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   background: radial-gradient(circle, #ec4899, #be185d);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 22px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 12px rgba(236, 72, 153, 0.6);
   z-index: 6;
   transition: all 0.4s ease;
-}
-
-.wax-seal:hover {
-  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .envelope.open .envelope-flap {
@@ -808,7 +908,6 @@ body {
   transform: translate(-50%, -50%) scale(0);
 }
 
-/* Sliding Letter Sheet */
 .letter-paper {
   background: #fbf8f2;
   color: #2b1747;
@@ -875,19 +974,9 @@ body {
   margin-top: 20px;
 }
 
-/* Responsiveness */
 @media (max-width: 380px) {
-  .hero-title {
-    font-size: 24px;
-  }
-  .timer-box .num {
-    font-size: 24px;
-  }
-  .balloon {
-    width: 52px;
-    height: 65px;
-  }
-  .romantic-subtitle {
-    font-size: 22px;
-  }
+  .hero-title { font-size: 24px; }
+  .timer-box .num { font-size: 24px; }
+  .balloon { width: 50px; height: 65px; }
+  .romantic-subtitle { font-size: 22px; }
 }
