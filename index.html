@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Happy 21st Birthday, Bawa! 💜🩵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Canvas for Stars & Floating Elements -->
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Floating Music Toggle & Preview Bar -->
+  <div class="top-nav">
+    <button id="musicToggleBtn" class="pill-btn music-btn" title="Toggle Music">
+      <span class="icon">🎵</span>
+      <span class="music-text">Music: Off</span>
+    </button>
+    <button id="previewModeBtn" class="pill-btn preview-btn" title="Toggle Test Mode">
+      <span class="icon">⚡</span>
+      <span id="previewText">Preview Midnight</span>
+    </button>
+  </div>
+
+  <main id="appContainer">
+    <!-- SCREEN 1: COUNTDOWN -->
+    <section id="screen-countdown" class="screen active">
+      <div class="moon-glow-container">
+        <div class="moon">
+          <div class="crater c1"></div>
+          <div class="crater c2"></div>
+          <div class="crater c3"></div>
+        </div>
+        <div class="halo"></div>
+      </div>
+
+      <div class="content-box glass-card fade-in">
+        <span class="badge">A Midnight Love Surprise ✨</span>
+        <h2 class="romantic-subtitle">"Someone miles away is waiting for this moment..."</h2>
+        <h1 class="target-title">Counting down to Bawa's 21st 💜</h1>
+
+        <div class="countdown-grid">
+          <div class="timer-box">
+            <span class="num" id="days">00</span>
+            <span class="label">Days</span>
+          </div>
+          <div class="timer-box">
+            <span class="num" id="hours">00</span>
+            <span class="label">Hours</span>
+          </div>
+          <div class="timer-box">
+            <span class="num" id="minutes">00</span>
+            <span class="label">Mins</span>
+          </div>
+          <div class="timer-box">
+            <span class="num" id="seconds">00</span>
+            <span class="label">Secs</span>
+          </div>
+        </div>
+
+        <p class="destination-date">18 November 2026 • 12:00 AM IST</p>
+        
+        <div class="test-hint">
+          <button class="ghost-btn" id="quickTestBtn">Test Midnight Celebration Now 🚀</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: MIDNIGHT SURPRISE -->
+    <section id="screen-celebrate" class="screen">
+      <div class="content-box glass-card celebration-box fade-in">
+        <div class="sparkle-badge">✨ It's Official! ✨</div>
+        <h1 class="glow-text hero-title">HAPPY 21ST BIRTHDAY, BAWA! 💜🩵</h1>
+        <p class="hero-subtitle">Today is your day, my favourite person!</p>
+        
+        <div class="age-badge">
+          <span>Turning</span>
+          <strong class="age-number">21</strong>
+          <span>Magnificent Years</span>
+        </div>
+
+        <button id="goToCakeBtn" class="magic-btn pulse">
+          Make a Birthday Wish 🎂 ✨
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: BIRTHDAY CAKE -->
+    <section id="screen-cake" class="screen">
+      <div class="content-box glass-card fade-in">
+        <h2 class="section-title">Make a wish, Bawa! 🎂</h2>
+        <p class="sub-text">Blow out your 21st birthday candle with a gentle tap ✨</p>
+
+        <div class="cake-stage" id="cakeContainer">
+          <div class="cake">
+            <div class="candle" id="candle">
+              <div class="flame" id="flame"></div>
+              <div class="smoke" id="smoke"></div>
+              <div class="number-tag">21</div>
+            </div>
+            <div class="frosting top-frosting"></div>
+            <div class="cake-tier tier-top">
+              <div class="berries">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="frosting middle-frosting"></div>
+            <div class="cake-tier tier-bottom">
+              <div class="decorations">
+                <i>💜</i><i>🩵</i><i>💜</i><i>🩵</i>
+              </div>
+            </div>
+            <div class="cake-plate"></div>
+          </div>
+        </div>
+
+        <!-- Wish Form (Revealed after candle is blown) -->
+        <div id="wishSection" class="wish-section hidden">
+          <p class="wish-prompt">"Close your eyes, make a wish and tell me what you wished for... 🥹"</p>
+          <div class="input-group">
+            <textarea id="wishInput" rows="3" placeholder="Type your heartfelt wish here, my love... 💜"></textarea>
+          </div>
+          <button id="submitWishBtn" class="magic-btn">
+            Send My Wish to Her 💌
+          </button>
+          <p class="note">Opens WhatsApp with your wish ready to send to her!</p>
+          
+          <button id="goToGameBtn" class="text-link-btn">
+            Skip / Continue to Balloon Surprise 🎈 ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: BALLOON GAME -->
+    <section id="screen-game" class="screen">
+      <div class="content-box glass-card fade-in">
+        <h2 class="section-title">Pop the Balloons! 🎈</h2>
+        <p class="sub-text">Tap each balloon to reveal the secret message hidden for you</p>
+
+        <div class="letter-reveal-bar" id="revealedWord">
+          <!-- Filled dynamically as balloons pop -->
+        </div>
+
+        <div class="balloon-arena" id="balloonArena">
+          <!-- 13 Balloons rendered here -->
+        </div>
+
+        <div id="gameSuccessModal" class="success-banner hidden">
+          <h1 class="congrats-text shimmer">I LOVE YOU BAWA 💜🩵</h1>
+          <p class="sub-love-text">Forever & always, in every lifetime! ✨</p>
+          <button id="goToLetterBtn" class="magic-btn pulse">
+            Read My Letter To You 💌
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: LOVE LETTER -->
+    <section id="screen-letter" class="screen">
+      <div class="content-box glass-card fade-in letter-screen-box">
+        <h2 class="section-title">A little something from your girl... 💌</h2>
+        <p class="sub-text">Touch the wax seal to unlock my heart</p>
+
+        <div class="envelope-wrapper" id="envelopeWrapper">
+          <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-pocket"></div>
+            <div class="wax-seal" id="waxSeal">
+              <span class="seal-heart">💜</span>
+            </div>
+          </div>
+
+          <!-- The sliding letter sheet -->
+          <div class="letter-paper" id="letterPaper">
+            <div class="letter-header">
+              <span class="date-stamp">Nov 18, 2026</span>
+              <span class="stamp-emoji">✨💜🩵✨</span>
+            </div>
+            <div class="letter-content" id="letterBodyText">
+              <!-- Exact text injected via script to ensure perfection -->
+            </div>
+            <div class="letter-footer">
+              <p>Forever Yours,</p>
+              <p class="signature">Your Girl 💜</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="letter-actions">
+          <button id="restartTourBtn" class="ghost-btn">
+            🔄 Relive The Surprise
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Ambient audio synthesizer & script -->
+  <script src="script.js"></script>
+</body>
+</html>
